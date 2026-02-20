@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 
 async function cargarUsuarios(){
-      const request = await fetch('usuarios', {
+      const request = await fetch('api/usuarios', {
         method: 'GET',
         headers: getHeaders()
       });
@@ -30,4 +30,16 @@ function getHeaders(){
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         }
+}
+async function eliminarUsuario(id){
+
+    if (!confirm("¿Desea eliminar este usuario?")){
+        return
+
+    }
+    const request = await fetch('api/usuarios/'+id, {
+            method: 'DELETE',
+            headers: getHeaders()
+          });
+    location.reload()
 }

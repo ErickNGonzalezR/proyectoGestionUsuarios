@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioDao usuarioDao;
 
-    @RequestMapping(value = "usuario/{id}")
+    @RequestMapping(value = "api/usuario/{id}" , method = RequestMethod.GET)
     public Usuario getUsuario(@PathVariable long id){
         Usuario usuario = new Usuario();
         usuario.setId(id);
@@ -30,13 +31,13 @@ public class UsuarioController {
     }
 
 
-    @RequestMapping(value = "usuarios")
+    @RequestMapping(value = "api/usuarios")
     public  List<Usuario> getUsuarios(){
         return usuarioDao.getUsuarios();
     }
 
 
-    @RequestMapping(value = "usuario")
+    @RequestMapping(value = "api/usuario")
     public List<Usuario> getUsuario(){
         List<Usuario> usuarios = new ArrayList<>();
         Usuario usuario = new Usuario();
@@ -78,14 +79,11 @@ public class UsuarioController {
         usuario.setEmail("uncorreo@gmail.com");
         return usuario;
     }
-    @RequestMapping(value = "usuariosPruea")
-    public Usuario eliminar(){
-        Usuario usuario = new Usuario();
-        usuario.setNombre("Pepito");
-        usuario.setApellido("Perez");
-        usuario.setTelefono("4564523");
-        usuario.setEmail("uncorreo@gmail.com");
-        return usuario;
+    @RequestMapping(value = "api/usuarios/{id}" , method = RequestMethod.DELETE)
+    public void eliminar(@PathVariable long id){
+
+        usuarioDao.eliminarUsuario(id);
+
     }
     @RequestMapping(value = "usuariosPeba")
     public Usuario buscar(){

@@ -22,4 +22,10 @@ public class usuarioDaoImp implements UsuarioDao{
 
         return entityManager.createQuery(query).getResultList();
     }
+
+    @Override
+    public void eliminarUsuario(long id) {
+        Usuario usuario = entityManager.find(Usuario.class, id);
+        entityManager.remove(usuario);
+    }
 }
